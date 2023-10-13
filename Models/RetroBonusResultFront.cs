@@ -2,7 +2,7 @@
 
 namespace Marlin.sqlite.Models
 {
-    public class RetroBonusResult
+    public class RetroBonusResultFront
     {
        
         public string RetroBonusID { get; set; }

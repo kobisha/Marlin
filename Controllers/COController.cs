@@ -42,7 +42,7 @@ namespace Marlin.sqlite.Controllers
                         SendStatus = o.SendStatus,
                         Products = _context.OrderDetails
                             .Where(d => d.OrderHeaderID == o.OrderID)
-                            .Select(p => new OrderProductModel
+                            .Select(p => new OrderDetails
                             {
                                 Id = p.Id,
                                 OrderHeaderID = p.OrderHeaderID,

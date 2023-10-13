@@ -70,7 +70,7 @@ WHERE od.""OrderHeaderID"" = @OrderID";
             new Npgsql.NpgsqlParameter("@OrderID", OrderID)
         };
 
-                var data = _context.Set<detailsFront>().FromSqlRaw(query, parameters).ToList();
+                var data = _context.Set<OrderDetailsFront>().FromSqlRaw(query, parameters).ToList();
 
                 var response = new
                 {

@@ -1,6 +1,6 @@
 ﻿namespace Marlin.sqlite.Models
 {
-    public class QueryResult
+    public class invoicfront
     {
         public int Id { get; set; }
         public string AccountID { get; set; }

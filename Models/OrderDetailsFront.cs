@@ -1,6 +1,6 @@
 ﻿namespace Marlin.sqlite.Models
 {
-    public class detailsFront
+    public class OrderDetailsFront
     {
         public int Id { get; set; }
         

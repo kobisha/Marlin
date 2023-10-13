@@ -17,10 +17,76 @@ namespace Marlin.sqlite.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.5")
+                .HasAnnotation("ProductVersion", "7.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("InvoiceDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal?>("Amount")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("Barcode")
+                        .HasColumnType("text");
+
+                    b.Property<string>("InvoiceID")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<decimal?>("Price")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal?>("Quantity")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("Unit")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InvoiceID");
+
+                    b.ToTable("InvoiceDetails");
+                });
+
+            modelBuilder.Entity("InvoiceHeader", b =>
+                {
+                    b.Property<string>("InvoiceID")
+                        .HasColumnType("text");
+
+                    b.Property<decimal?>("Amount")
+                        .HasColumnType("numeric");
+
+                    b.Property<DateTimeOffset>("Date")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("ID")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Number")
+                        .HasColumnType("text");
+
+                    b.Property<string>("OrderID")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("PaymentDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("WaybillNumber")
+                        .HasColumnType("text");
+
+                    b.HasKey("InvoiceID");
+
+                    b.ToTable("InvoiceHeaders");
+                });
 
             modelBuilder.Entity("Marlin.sqlite.Models.AccessProfiles", b =>
                 {
@@ -269,76 +335,6 @@ namespace Marlin.sqlite.Migrations
                     b.ToTable("ExchangeLog");
                 });
 
-            modelBuilder.Entity("Marlin.sqlite.Models.InvoiceDetail", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
-
-                    b.Property<decimal?>("Amount")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("Barcode")
-                        .HasColumnType("text");
-
-                    b.Property<string>("InvoiceHeaderID")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("InvoiceHeaderID1")
-                        .HasColumnType("integer");
-
-                    b.Property<decimal?>("Price")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal?>("Quantity")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("Unit")
-                        .HasColumnType("text");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("InvoiceHeaderID1");
-
-                    b.ToTable("InvoiceDetails");
-                });
-
-            modelBuilder.Entity("Marlin.sqlite.Models.InvoiceHeader", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
-
-                    b.Property<decimal?>("Amount")
-                        .HasColumnType("numeric");
-
-                    b.Property<DateTimeOffset>("Date")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("InvoiceID")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Number")
-                        .HasColumnType("text");
-
-                    b.Property<string>("OrderID")
-                        .HasColumnType("text");
-
-                    b.Property<DateTimeOffset>("PaymentDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("WaybillNumber")
-                        .HasColumnType("text");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("InvoiceHeaders");
-                });
-
             modelBuilder.Entity("Marlin.sqlite.Models.Invoices", b =>
                 {
                     b.Property<int>("id")
@@ -444,49 +440,6 @@ namespace Marlin.sqlite.Migrations
                     b.HasIndex("OrderHeadersId");
 
                     b.ToTable("OrderDetails");
-                });
-
-            modelBuilder.Entity("Marlin.sqlite.Models.OrderFront", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AccountID")
-                        .HasColumnType("text");
-
-                    b.Property<decimal?>("Amount")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("Date")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Number")
-                        .HasColumnType("text");
-
-                    b.Property<string>("OrderID")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Scheduled")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Shop")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Vendor")
-                        .HasColumnType("text");
-
-                    b.Property<string>("VendorID")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("frontOrders");
                 });
 
             modelBuilder.Entity("Marlin.sqlite.Models.OrderHeaders", b =>
@@ -688,107 +641,6 @@ namespace Marlin.sqlite.Migrations
                     b.ToTable("ProductsByCategories");
                 });
 
-            modelBuilder.Entity("Marlin.sqlite.Models.QueryResult", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AccountID")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<decimal>("InvoiceAmount")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("InvoiceID")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("InvoiceNumber")
-                        .HasColumnType("text");
-
-                    b.Property<decimal>("OrderAmount")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("OrderID")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("OrderNumber")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Shop")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Vendor")
-                        .HasColumnType("text");
-
-                    b.Property<string>("VendorID")
-                        .HasColumnType("text");
-
-                    b.Property<string>("WaybillNumber")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Results");
-                });
-
-            modelBuilder.Entity("Marlin.sqlite.Models.RBFront", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AccountID")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Condition")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("DocumentNo")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("EndDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<decimal?>("PlanAmount")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("RetroBonusID")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<decimal?>("RetroPercent")
-                        .HasColumnType("numeric");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("SupplierID")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("RBFronts");
-                });
-
             modelBuilder.Entity("Marlin.sqlite.Models.RetroBonusDetails", b =>
                 {
                     b.Property<int>("Id")
@@ -914,212 +766,6 @@ namespace Marlin.sqlite.Migrations
                     b.HasIndex("RetroBonusHeaderId");
 
                     b.ToTable("RetroBonusPlanRanges");
-                });
-
-            modelBuilder.Entity("Marlin.sqlite.Models.RetroBonusResult", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Barcode")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Product")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<decimal?>("PurchaseAmount")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("RetroBonusID")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<decimal?>("RetroPercent")
-                        .HasColumnType("numeric");
-
-                    b.Property<int?>("Stock")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("RetroBonusResults");
-                });
-
-            modelBuilder.Entity("Marlin.sqlite.Models.SLAByCategory", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
-
-                    b.Property<decimal>("InTimeOrders")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("OrderedAmount")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("OrderedQuantity")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("Orders")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("ProductCategory")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<decimal>("SLAByAmount")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("SLAByQuantity")
-                        .HasColumnType("numeric");
-
-                    b.HasKey("id");
-
-                    b.ToTable("sLAByCategories");
-                });
-
-            modelBuilder.Entity("Marlin.sqlite.Models.SLAByOrder", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
-
-                    b.Property<decimal>("InTimeOrders")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("OrderDate")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("OrderNumber")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<decimal>("SLAByAmount")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("SLAByQuantity")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("Shop")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("id");
-
-                    b.ToTable("sLAByOrders");
-                });
-
-            modelBuilder.Entity("Marlin.sqlite.Models.SLAByProducts", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
-
-                    b.Property<decimal>("InTimeOrders")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("OrderedAmount")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("OrderedQuantity")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("Orders")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("Product")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<decimal>("SLAByAmount")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("SLAByQuantity")
-                        .HasColumnType("numeric");
-
-                    b.HasKey("id");
-
-                    b.ToTable("SLAByProducts");
-                });
-
-            modelBuilder.Entity("Marlin.sqlite.Models.SLAByShops", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
-
-                    b.Property<decimal>("DeliveredQuantity")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("InTimeOrders")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("Orders")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("SLAByAmount")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("SLAByQuantity")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("Shop")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("id");
-
-                    b.ToTable("SLAByShops");
-                });
-
-            modelBuilder.Entity("Marlin.sqlite.Models.SLAByVendors", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("InTimeOrders")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("OrderDate")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<decimal>("Orders")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("SLAByAmount")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("SLAByQuantity")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("Vendor")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("id");
-
-                    b.ToTable("SLAByVendors");
                 });
 
             modelBuilder.Entity("Marlin.sqlite.Models.ServiceLevels", b =>
@@ -1326,129 +972,15 @@ namespace Marlin.sqlite.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Marlin.sqlite.Models.detailsFront", b =>
+            modelBuilder.Entity("InvoiceDetail", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal?>("Amount")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("Barcode")
-                        .HasColumnType("text");
-
-                    b.Property<decimal?>("Price")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("Product")
-                        .HasColumnType("text");
-
-                    b.Property<decimal?>("Quantity")
-                        .HasColumnType("numeric");
-
-                    b.Property<bool>("RedStatus")
-                        .HasColumnType("boolean");
-
-                    b.Property<decimal?>("ReservedQuantity")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("Unit")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("frontDetails");
-                });
-
-            modelBuilder.Entity("Marlin.sqlite.Models.invdetails", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Barcode")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<decimal?>("InvoiceAmount")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal?>("InvoiceQuantity")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal?>("OrderAmount")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal?>("OrderQuantity")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("Product")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("RedStatus")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Unit")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("invdetails");
-                });
-
-            modelBuilder.Entity("Marlin.sqlite.Models.temTable", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Barcode")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("LastChangeDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<decimal?>("LastOrderPrice")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal?>("Price")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("Product")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("ProductID")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Unit")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Table");
-                });
-
-            modelBuilder.Entity("Marlin.sqlite.Models.InvoiceDetail", b =>
-                {
-                    b.HasOne("Marlin.sqlite.Models.InvoiceHeader", null)
+                    b.HasOne("InvoiceHeader", "InvoiceHeader")
                         .WithMany("InvoiceDetails")
-                        .HasForeignKey("InvoiceHeaderID1");
+                        .HasForeignKey("InvoiceID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("InvoiceHeader");
                 });
 
             modelBuilder.Entity("Marlin.sqlite.Models.OrderDetails", b =>
@@ -1474,7 +1006,7 @@ namespace Marlin.sqlite.Migrations
                         .HasForeignKey("RetroBonusHeaderId");
                 });
 
-            modelBuilder.Entity("Marlin.sqlite.Models.InvoiceHeader", b =>
+            modelBuilder.Entity("InvoiceHeader", b =>
                 {
                     b.Navigation("InvoiceDetails");
                 });

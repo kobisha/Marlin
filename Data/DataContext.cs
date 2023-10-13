@@ -1,6 +1,7 @@
 ﻿using Marlin.sqlite.Models;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace Marlin.sqlite.Data
 {
     public class DataContext : DbContext
@@ -45,7 +46,7 @@ namespace Marlin.sqlite.Data
 
         public DbSet<temTable> Table { get; set; }
         public DbSet<OrderFront> frontOrders { get; set; }
-        public DbSet<detailsFront> frontDetails { get; set; }
+        public DbSet<OrderDetailsFront> frontDetails { get; set; }
 
         public DbSet<SLAByCategory> sLAByCategories { get; set; }
         public DbSet<SLAByOrder> sLAByOrders { get; set; }
@@ -56,8 +57,8 @@ namespace Marlin.sqlite.Data
         public DbSet<RetroBonusDetails> RetroBonusDetails { get; set; }
         public DbSet<RetroBonusPlanRanges> RetroBonusPlanRanges { get; set; }
         public DbSet<RBFront> RBFronts { get; set; }
-        public DbSet<RetroBonusResult> RetroBonusResults { get; set; }
-        public DbSet<QueryResult> Results { get; set; }
+        public DbSet<RetroBonusResultFront> RetroBonusResults { get; set; }
+        public DbSet<invoicfront> Results { get; set; }
         public DbSet<invdetails> invdetails { get; set; }
         public DbSet<OrderStatusResult> OrderStatusResults { get; set; }
 
@@ -67,18 +68,41 @@ namespace Marlin.sqlite.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Ignore<temTable>();
-            //modelBuilder.Ignore<OrderFront>();
-            //modelBuilder.Ignore<detailsFront>();
+            modelBuilder.Entity<InvoiceHeader>().HasKey(e => e.InvoiceID);
+            
+            modelBuilder.Entity<InvoiceDetail>()         
+                        .HasOne(e => e.InvoiceHeader)
+                .WithMany(h => h.InvoiceDetails).HasForeignKey(e => e.InvoiceID)
+                        ;
+            modelBuilder.Ignore<temTable>();
+            modelBuilder.Ignore<OrderFront>();
+            modelBuilder.Ignore<RBFront>();
+            modelBuilder.Ignore<OrderDetailsFront>();
+            modelBuilder.Ignore<SLAByOrder>();
+            modelBuilder.Ignore<SLAByOrder>();
+            modelBuilder.Ignore<SLAByCategory>();
+            modelBuilder.Ignore<SLAByProducts>();
+            modelBuilder.Ignore<SLAByShops>();
+            modelBuilder.Ignore<SLAByVendors>();
+            modelBuilder.Ignore<RetroBonusResultFront>();
+            modelBuilder.Ignore<invoicfront>();
+            modelBuilder.Ignore<invdetails>();
+            modelBuilder.Ignore<OrderStatusResult>();
+           // modelBuilder.Entity<InvoiceHeader>().HasKey(e => new { e.ID, e.OrderID }); // Define the composite primary key
+           
 
             // Add other model configurations here
-            
+
 
             base.OnModelCreating(modelBuilder);
         }
-      
-        
 
+
+
+        
+        
+           
+        
 
 
 

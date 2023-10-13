@@ -54,7 +54,7 @@ namespace Marlin.sqlite.Controllers
                     new NpgsqlParameter("@AccountID", AccountID)
                 };
 
-                var data = _context.Set<QueryResult>().FromSqlRaw(query, parameters).ToList();
+                var data = _context.Set<invoicfront>().FromSqlRaw(query, parameters).ToList();
 
                 var response = new
                 {

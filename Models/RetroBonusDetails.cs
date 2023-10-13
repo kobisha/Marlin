@@ -22,8 +22,7 @@ namespace Marlin.sqlite.Models
 
         [System.Text.Json.Serialization.JsonConverter(typeof(NullableDecimalConverter))]
         public decimal? ManufacturerPercent { get; set; }
-        public decimal? PurchaseAmount { get; set; }
-        public decimal? Stock { get; set; }
+       
 
         public int? RetroBonusHeaderId { get; set; }
         public RetroBonusHeader? RetroBonusHeader { get; set; }

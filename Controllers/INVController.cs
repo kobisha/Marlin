@@ -53,7 +53,7 @@ namespace Marlin.sqlite.Controllers
                                 // Create a new product
                                 var newProduct = new InvoiceDetail
                                 {
-                                    InvoiceHeaderID = existingInvoice.InvoiceID,
+                                    InvoiceID = existingInvoice.InvoiceID,
                                     Barcode = product.Barcode,
                                     Unit = product.Unit,
                                     Quantity = decimal.TryParse(product.Quantity, out decimal quantity) ? quantity : (decimal?)null,
@@ -83,7 +83,7 @@ namespace Marlin.sqlite.Controllers
                         {
                             var newInvoiceDetail = new InvoiceDetail
                             {
-                                InvoiceHeaderID = newInvoiceHeader.InvoiceID,
+                                InvoiceID = newInvoiceHeader.InvoiceID,
                                 Barcode = product.Barcode,
                                 Unit = product.Unit,
                                 Quantity = decimal.TryParse(product.Quantity, out decimal quantity) ? quantity : (decimal?)null,
