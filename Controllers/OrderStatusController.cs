@@ -35,6 +35,15 @@ namespace Marlin.sqlite.Controllers
                 order.StatusID = updateDto.StatusID;
                 await _context.SaveChangesAsync();
 
+                var orderStatusHistory = new OrderStatusHistory
+                {
+                    OrderID = updateDto.OrderId,
+                    Date = DateTime.UtcNow,
+                    StatusID = updateDto.StatusID,
+                };
+                _context.OrderStatusHistory.Add(orderStatusHistory);
+                _context.SaveChanges();
+
                 return Ok(order);
             }
             catch (Exception e)

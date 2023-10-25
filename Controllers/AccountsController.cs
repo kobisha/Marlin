@@ -4,6 +4,7 @@ using Marlin.sqlite.Helper;
 using Marlin.sqlite.Models;
 using Marlin.sqlite.Services;
 using Marlin.sqlite.Wrappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -41,7 +42,7 @@ namespace Marlin.sqlite.Controllers
                 return StatusCode(500, "An error occurred while saving the account.");
             }
         }
-
+        [Authorize]
         [HttpGet]
 
         public async Task<IActionResult> GetUsers([FromQuery] PaginationFilter filter)

@@ -25,6 +25,8 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public IActionResult Login(LoginModel loginModel)
     {
         if (!IsValidLogin(loginModel.Username, loginModel.Password))

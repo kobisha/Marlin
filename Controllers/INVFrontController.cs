@@ -29,7 +29,7 @@ namespace Marlin.sqlite.Controllers
             {
                 var query = @"
             SELECT
-                ih.""ID"",
+                
                 oh.""AccountID"",
                 ih.""OrderID"",
                 ih.""InvoiceID"",

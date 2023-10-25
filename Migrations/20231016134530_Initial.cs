@@ -223,10 +223,9 @@ namespace Marlin.sqlite.Migrations
                 name: "OrderHeaders",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    AccountID = table.Column<string>(type: "text", nullable: false),
                     OrderID = table.Column<string>(type: "text", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false),
+                    AccountID = table.Column<string>(type: "text", nullable: false),
                     Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Number = table.Column<string>(type: "text", nullable: false),
                     SenderID = table.Column<string>(type: "text", nullable: false),
@@ -238,7 +237,7 @@ namespace Marlin.sqlite.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderHeaders", x => x.Id);
+                    table.PrimaryKey("PK_OrderHeaders", x => x.OrderID);
                 });
 
             migrationBuilder.CreateTable(
@@ -514,16 +513,16 @@ namespace Marlin.sqlite.Migrations
                     Price = table.Column<decimal>(type: "numeric", nullable: true),
                     Amount = table.Column<decimal>(type: "numeric", nullable: true),
                     ReservedQuantity = table.Column<decimal>(type: "numeric", nullable: true),
-                    OrderHeadersId = table.Column<int>(type: "integer", nullable: true)
+                    OrderHeadersOrderID = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OrderDetails", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrderDetails_OrderHeaders_OrderHeadersId",
-                        column: x => x.OrderHeadersId,
+                        name: "FK_OrderDetails_OrderHeaders_OrderHeadersOrderID",
+                        column: x => x.OrderHeadersOrderID,
                         principalTable: "OrderHeaders",
-                        principalColumn: "Id");
+                        principalColumn: "OrderID");
                 });
 
             migrationBuilder.CreateTable(
@@ -577,9 +576,9 @@ namespace Marlin.sqlite.Migrations
                 column: "InvoiceID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderDetails_OrderHeadersId",
+                name: "IX_OrderDetails_OrderHeadersOrderID",
                 table: "OrderDetails",
-                column: "OrderHeadersId");
+                column: "OrderHeadersOrderID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RetroBonusDetails_RetroBonusHeaderId",

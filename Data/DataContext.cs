@@ -61,6 +61,7 @@ namespace Marlin.sqlite.Data
         public DbSet<invoicfront> Results { get; set; }
         public DbSet<invdetails> invdetails { get; set; }
         public DbSet<OrderStatusResult> OrderStatusResults { get; set; }
+        public DbSet<AccountData> AccountData { get; set; }
 
 
 
@@ -74,7 +75,7 @@ namespace Marlin.sqlite.Data
                         .HasOne(e => e.InvoiceHeader)
                 .WithMany(h => h.InvoiceDetails).HasForeignKey(e => e.InvoiceID)
                         ;
-            modelBuilder.Ignore<temTable>();
+            /*modelBuilder.Ignore<temTable>();
             modelBuilder.Ignore<OrderFront>();
             modelBuilder.Ignore<RBFront>();
             modelBuilder.Ignore<OrderDetailsFront>();
@@ -87,7 +88,7 @@ namespace Marlin.sqlite.Data
             modelBuilder.Ignore<RetroBonusResultFront>();
             modelBuilder.Ignore<invoicfront>();
             modelBuilder.Ignore<invdetails>();
-            modelBuilder.Ignore<OrderStatusResult>();
+            modelBuilder.Ignore<OrderStatusResult>();*/
            // modelBuilder.Entity<InvoiceHeader>().HasKey(e => new { e.ID, e.OrderID }); // Define the composite primary key
            
 

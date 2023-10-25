@@ -27,7 +27,7 @@ namespace Marlin.sqlite.Controllers
             {
                 var query = @"
                     SELECT
-                        id.""id"",
+                        
                        
                         c.""Name"" AS ""Product"",
                         id.""Barcode"" AS ""Barcode"",
@@ -38,11 +38,11 @@ namespace Marlin.sqlite.Controllers
                         od.""Amount"" AS ""OrderAmount"",
                         CASE WHEN od.""Amount"" - id.""Amount"" <> 0 THEN true ELSE false END AS ""RedStatus""
                     FROM public.""InvoiceDetails"" id
-                    JOIN public.""InvoiceHeaders"" ih ON id.""InvoiceHeaderID"" = ih.""InvoiceID""
+                    JOIN public.""InvoiceHeaders"" ih ON id.""InvoiceID"" = ih.""InvoiceID""
                     JOIN public.""OrderDetails"" od ON od.""OrderHeaderID"" = ih.""OrderID"" AND id.""Barcode"" = od.""Barcode""
                     LEFT JOIN public.""Barcodes"" b ON id.""Barcode"" = b.""Barcode""
                     LEFT JOIN public.""Catalogues"" c ON b.""ProductID"" = c.""ProductID""
-                    WHERE id.""InvoiceHeaderID"" = @InvoiceID;";
+                    WHERE id.""InvoiceID"" = @InvoiceID;";
 
                 var parameters = new[]
                 {

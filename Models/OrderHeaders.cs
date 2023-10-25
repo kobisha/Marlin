@@ -5,12 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Marlin.sqlite.Models
 {
     public class OrderHeaders
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+    {   public int Id { get; set; }
         public string AccountID { get; set; }
-
+        [Key]
         public string OrderID { get; set; }
         
         public DateTime Date { get; set; }

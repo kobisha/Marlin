@@ -146,9 +146,16 @@ var app = builder.Build();
 
     app.MapControllers();
 
-    // Configure Swagger
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API Name");
+        c.RoutePrefix = "swagger";  // Modify this as needed
+        c.DisplayRequestDuration();
+        // Uncomment the next line to enable the authorization lock
+        // c.EnableAnnotations();
+        // c.DocExpansion(DocExpansion.List);
+    }).UseAuthentication();
 
-    app.Run();
+app.Run();
 

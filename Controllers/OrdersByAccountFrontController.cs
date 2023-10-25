@@ -25,7 +25,7 @@ namespace Marlin.sqlite.Controllers
                 var query = @"
    SELECT
 
-    oh.""Id"",
+   
 
     oh.""AccountID"",
 
@@ -61,7 +61,7 @@ LEFT JOIN public.""Accounts"" ac ON oh.""ReceiverID""  = ac.""AccountID""
 
 where oh.""AccountID"" = @AccountID
 
-group by oh.""Id"",
+group by 
 
     oh.""AccountID"",
 

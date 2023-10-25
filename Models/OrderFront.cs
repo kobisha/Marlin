@@ -5,10 +5,11 @@ namespace Marlin.sqlite.Models
 {
     public class OrderFront
     {
+        
+        
+        public string? AccountID { get; set; }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-        public string? AccountID { get; set; }
         public string? OrderID { get; set; }
         
         public string? Date { get; set; }

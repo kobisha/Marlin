@@ -25,7 +25,7 @@ namespace Marlin.sqlite.Controllers
                 var query = @"
             SELECT
 
-    od.""Id"",
+    
 
     c.""Name"" AS ""Product"",
 
@@ -61,7 +61,7 @@ LEFT JOIN public.""Catalogues"" c ON b.""ProductID"" = c.""ProductID""
 
 LEFT JOIN public.""InvoiceHeaders"" ih ON od.""OrderHeaderID"" = ih.""OrderID""
 
-LEFT JOIN public.""InvoiceDetails"" id ON id.""InvoiceHeaderID"" = ih.""InvoiceID"" and id.""Barcode"" = od.""Barcode""
+LEFT JOIN public.""InvoiceDetails"" id ON id.""InvoiceID"" = ih.""InvoiceID"" and id.""Barcode"" = od.""Barcode""
 
 WHERE od.""OrderHeaderID"" = @OrderID";
 

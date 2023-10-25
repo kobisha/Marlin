@@ -420,8 +420,8 @@ namespace Marlin.sqlite.Migrations
                     b.Property<string>("OrderHeaderID")
                         .HasColumnType("text");
 
-                    b.Property<int?>("OrderHeadersId")
-                        .HasColumnType("integer");
+                    b.Property<string>("OrderHeadersOrderID")
+                        .HasColumnType("text");
 
                     b.Property<decimal?>("Price")
                         .HasColumnType("numeric");
@@ -437,18 +437,15 @@ namespace Marlin.sqlite.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderHeadersId");
+                    b.HasIndex("OrderHeadersOrderID");
 
                     b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("Marlin.sqlite.Models.OrderHeaders", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<string>("OrderID")
+                        .HasColumnType("text");
 
                     b.Property<string>("AccountID")
                         .IsRequired()
@@ -460,11 +457,10 @@ namespace Marlin.sqlite.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Number")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("OrderID")
+                    b.Property<string>("Number")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -486,7 +482,7 @@ namespace Marlin.sqlite.Migrations
                     b.Property<decimal>("StatusID")
                         .HasColumnType("numeric");
 
-                    b.HasKey("Id");
+                    b.HasKey("OrderID");
 
                     b.ToTable("OrderHeaders");
                 });
@@ -987,7 +983,7 @@ namespace Marlin.sqlite.Migrations
                 {
                     b.HasOne("Marlin.sqlite.Models.OrderHeaders", null)
                         .WithMany("Products")
-                        .HasForeignKey("OrderHeadersId");
+                        .HasForeignKey("OrderHeadersOrderID");
                 });
 
             modelBuilder.Entity("Marlin.sqlite.Models.RetroBonusDetails", b =>

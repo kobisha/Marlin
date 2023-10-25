@@ -37,7 +37,7 @@ namespace Marlin.sqlite.Controllers
 
                         JOIN public.""InvoiceDetails"" as ID
 
-                            ON IH.""InvoiceID"" = ID.""InvoiceHeaderID""     
+                            ON IH.""InvoiceID"" = ID.""InvoiceID""     
 
                     )
 

@@ -1,9 +1,12 @@
-﻿namespace Marlin.sqlite.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Marlin.sqlite.Models
 {
     public class invoicfront
     {
-        public int Id { get; set; }
+        
         public string AccountID { get; set; }
+        [Key]
         public string OrderID { get; set; }
         public string InvoiceID { get; set; }
         public DateTime Date { get; set; }

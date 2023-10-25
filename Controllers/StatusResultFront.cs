@@ -30,9 +30,9 @@ namespace Marlin.sqlite.Controllers
                     WHERE osh.""OrderID"" = @OrderID";
 
                 var parameters = new[]
-                {
-                    new Npgsql.NpgsqlParameter("@OrderID", orderId)
-                };
+{
+    new Npgsql.NpgsqlParameter("@OrderID", orderId)
+};
 
                 var orderStatus = _context.Set<OrderStatusResult>().FromSqlRaw(query, parameters).ToList();
 

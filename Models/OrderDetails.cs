@@ -8,7 +8,7 @@ namespace Marlin.sqlite.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-
+        public string InvoiceHeaderID { get; set; }
         
         public string? OrderHeaderID { get; set; }
         public string? Barcode { get; set; }

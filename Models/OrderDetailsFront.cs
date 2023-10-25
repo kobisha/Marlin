@@ -1,10 +1,14 @@
-﻿namespace Marlin.sqlite.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Marlin.sqlite.Models
 {
     public class OrderDetailsFront
     {
-        public int Id { get; set; }
+      
+        
         
         public string? Product { get; set;}
+        [Key] 
         public string? Barcode { get; set;}
         public string? Unit { get; set;}
         public decimal? Quantity { get; set;}
